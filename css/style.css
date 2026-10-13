@@ -1,0 +1,159 @@
+/* 拼豆图纸生成器样式 */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f5f3ee;
+  --panel: #ffffff;
+  --ink: #2b2b2b;
+  --accent: #e0533d;
+  --line: #d8d2c4;
+}
+
+body {
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header { padding: 18px 28px 10px; }
+header h1 { font-size: 22px; letter-spacing: 1px; }
+header .sub { font-size: 13px; color: #777; margin-top: 4px; }
+
+main {
+  flex: 1;
+  display: flex;
+  gap: 16px;
+  padding: 0 28px 20px;
+  align-items: stretch;
+}
+
+/* ---------- 左侧面板 ---------- */
+#panel {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#dropzone {
+  border: 2px dashed var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  padding: 26px 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+#dropzone:hover, #dropzone.drag {
+  border-color: var(--accent);
+  background: #fdf6f4;
+}
+#dropzone .hint { font-size: 12px; color: #999; margin-top: 6px; }
+
+.settings {
+  background: var(--panel);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.settings h2 { font-size: 14px; color: #666; font-weight: 600; }
+
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.row label { font-size: 13px; display: flex; flex-direction: column; gap: 4px; }
+.row label.grow { flex: 1; }
+.row input[type=number] {
+  width: 70px; padding: 6px; border: 1px solid var(--line);
+  border-radius: 6px; font-size: 14px;
+}
+.row input[type=range] { width: 100%; accent-color: var(--accent); }
+.row input[type=checkbox] { accent-color: var(--accent); }
+.row label:has(input[type=checkbox]) { flex-direction: row; align-items: center; }
+
+button {
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--ink);
+  transition: all .15s;
+}
+button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+button:disabled { opacity: .4; cursor: not-allowed; }
+button.primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 11px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+}
+button.primary:hover:not(:disabled) { background: #c94430; color: #fff; }
+
+.presets { display: flex; gap: 6px; flex-wrap: wrap; }
+.presets button { font-size: 12px; padding: 5px 8px; }
+
+.hint { font-size: 12px; color: #999; }
+
+/* ---------- 右侧工作台 ---------- */
+#workbench {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+#tabs {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.tab.active { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.grow { flex: 1; }
+
+#views {
+  background: var(--panel);
+  border-radius: 10px;
+  padding: 16px;
+  overflow: auto;
+  flex: 1;
+  min-height: 420px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+#views canvas { max-width: 100%; image-rendering: pixelated; }
+
+#beadList {
+  background: var(--panel);
+  border-radius: 10px;
+  padding: 16px;
+}
+#beadList.hidden { display: none; }
+#beadList h2 { font-size: 14px; color: #666; margin-bottom: 8px; }
+#beadTable { width: 100%; border-collapse: collapse; font-size: 13px; }
+#beadTable th, #beadTable td {
+  border: 1px solid var(--line);
+  padding: 5px 8px;
+  text-align: left;
+}
+#beadTable td:first-child {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+}
+#beadTable th { background: #faf8f4; font-weight: 600; }
+
+footer {
+  padding: 10px 28px 16px;
+  font-size: 12px;
+  color: #999;
+}

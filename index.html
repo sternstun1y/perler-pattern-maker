@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拼豆图纸生成器 · Perler Beads Pattern Maker</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1>拼豆图纸生成器</h1>
+  <p class="sub">上传任意图片（普通照片 / 像素图），自动匹配 Perler 实体豆色号，生成可下载的拼豆图纸</p>
+</header>
+
+<main>
+  <!-- 左侧：控制面板 -->
+  <aside id="panel">
+    <div id="dropzone" tabindex="0">
+      <p><strong>点击或拖拽图片到这里</strong></p>
+      <p class="hint">支持 PNG / JPG / WebP，普通照片和像素图均可</p>
+      <input type="file" id="fileInput" accept="image/*" hidden>
+    </div>
+
+    <section class="settings">
+      <h2>板型设置</h2>
+      <div class="row">
+        <label>宽度（豆）
+          <input type="number" id="cols" value="29" min="5" max="200">
+        </label>
+        <label>高度（豆）
+          <input type="number" id="rows" value="29" min="5" max="200">
+        </label>
+        <button id="fitAspect" title="按原图比例自动调整高度">按比例适配</button>
+      </div>
+      <div class="presets">
+        <button data-size="29,29">标准方板 29×29</button>
+        <button data-size="29,14">半板 29×14</button>
+        <button data-size="50,50">大板 50×50</button>
+      </div>
+
+      <h2>照片转像素</h2>
+      <div class="row">
+        <label class="grow">降色数 <span id="kVal">24</span> 色
+          <input type="range" id="kColors" min="6" max="48" value="24">
+        </label>
+      </div>
+      <p class="hint">普通照片建议 16~32 色；自带像素图可拖到最左（关闭降色）</p>
+
+      <div class="row">
+        <label><input type="checkbox" id="denoise" checked> 清除杂点（孤豆自动并入邻近色）</label>
+      </div>
+
+      <button id="generate" class="primary" disabled>生成图纸</button>
+    </section>
+  </aside>
+
+  <!-- 右侧：预览与导出 -->
+  <section id="workbench">
+    <nav id="tabs">
+      <button class="tab active" data-tab="preview">效果预览</button>
+      <button class="tab" data-tab="pattern">图纸预览</button>
+      <span class="grow"></span>
+      <button id="dlPattern" disabled>下载图纸 PNG</button>
+      <button id="dlCsv" disabled>下载用豆清单 CSV</button>
+    </nav>
+    <div id="views">
+      <canvas id="previewCanvas"></canvas>
+      <canvas id="patternCanvas" hidden></canvas>
+    </div>
+    <section id="beadList" class="hidden">
+      <h2>用豆量清单</h2>
+      <table id="beadTable"></table>
+    </section>
+  </section>
+</main>
+
+<footer>
+  <p>色库：Perler 官方 117 色（色号 P01~P961）· 纯前端工具，图片不会上传到任何服务器</p>
+</footer>
+
+<script src="js/perler-colors.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
